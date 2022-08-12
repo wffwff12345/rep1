@@ -1,0 +1,57 @@
+p {
+    margin: 0;
+  }
+.list-wrapper{
+  display: flex;
+  height: 300px;
+  width: 240;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.list-wrapper.ng-star-inserted{
+  height: 300px;
+  width: 240;
+}
+.status-wrapper{
+  margin-left: 20px;
+}
+.page-wrapper{
+  margin-top: 10px;
+  height: 10px;
+}
+.content-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding-right: 30px;
+}
+.picture-wrapper{
+  width: 800px;
+  height:400px;
+}
+.item-wrapper{
+  height: auto;
+  width: 300px;
+  padding: 15px 10px;
+}
+.item{
+  position: relative;
+  text-align: left;
+}
+.item-wrapper:hover .item-bar{
+  display: inherit;
+}
+.item-bar{
+  display: none;
+  position:absolute;
+  width: 100%;
+}
+.item-t{
+  font-size: 12px;
+  min-height: 30px;
+  margin: 10px 0px;
+  line-height: 150%;
+}
+.item-i{
+  margin-bottom: 10px;
+}

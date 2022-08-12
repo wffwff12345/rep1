@@ -1,0 +1,121 @@
+<div class="search-wrapper">
+    <nz-input-group nzPrefixIcon="user" [nzSuffix]="inputClearTpl" >
+        <input type="text" nz-input [(ngModel)]="getdto.name" placeholder="请输入账户名" (blur)="search()" (change)="search()" />
+    </nz-input-group>
+    <ng-template #inputClearTpl>
+        <i
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (click)="clean()"
+        ></i>
+      </ng-template>
+</div>
+<nz-table #basicTable [nzData]="listOfData"  [nzLoading]="isloading" [nzFrontPagination]="false">
+    <thead>
+      <tr>
+        <th>用户ID</th>
+        <th>用户名</th>
+        <th>年龄</th>
+        <th>注册时间</th>
+        <th>邮箱</th>
+        <th>电话</th>
+        <th>用户授权状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data;let id=index;">
+        <td>{{data.id}}</td>
+        <td>{{ data.name }}</td>
+        <td>{{ data.age }}</td>
+        <td>{{ data.date| date :'yyyy-MM-dd' }}</td>
+        <td>{{data.email}}</td>
+        <td>{{data.phone}}</td>
+        <td>{{data.status==0? '未授权':'已授权'}}</td>
+        <td>
+          <a href="#"  nz-popconfirm nzPopconfirmTitle="你确定编辑?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="update(data.id)" (nzOnCancel)="updatecancel()" >修改</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a href="#"  nz-popconfirm nzPopconfirmTitle="你确定删除?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="delete(data.id)" (nzOnCancel)="deletecancel()" >删除</a>
+          <nz-divider nzType="vertical"></nz-divider>
+          <a href="#"  nz-popconfirm nzPopconfirmTitle="你确定进行权限操作?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="status(data.id,data.status)" (nzOnCancel)="statuscancel(data.status)">{{data.status==0? '授权':'取消授权'}}</a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <div nz-row nzJustify="end">
+  <nz-pagination [nzTotal]="total" [(nzPageIndex)]="getdto.page" [(nzPageSize)]="getdto.size"  (nzPageIndexChange)="search()"></nz-pagination>
+  </div>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="编辑用户" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <div class="user-wrapper" nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
+      <form nz-form [formGroup]="validateForm">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>用户名</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..."nzErrorTip [nzErrorTip]="userErrorTpll">
+            <input nz-input formControlName="name" placeholder=" 用户名" />
+            <ng-template #userErrorTpll let-control>
+              <ng-container *ngIf="control.hasError('required')">用户名为必填项!</ng-container>
+              <ng-container *ngIf="control.hasError('minlength')">用户名字符应大于3!</ng-container>
+              <ng-container *ngIf="control.hasError('maxlength')">用户名字符应小于20!</ng-container>
+              <ng-container *ngIf="control.hasError('duplicated')"></ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>密码</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input formControlName="password" placeholder=" 密码" />
+            <ng-template #userErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">密码为必填项!</ng-container>
+              <ng-container *ngIf="control.hasError('minlength')">密码字符长度应大于3!</ng-container>
+              <ng-container *ngIf="control.hasError('maxlength')">密码名字符长度应小于6!</ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+       <!--  <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>确认密码</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="userErrorTpl">
+            <input nz-input formControlName="confirm" placeholder=" 确认密码" />
+            <ng-template #userErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('required')">密码为必填项!</ng-container>
+              <ng-container *ngIf="control.hasError('confirm')">密码输入不一致</ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item> -->
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>年龄</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." nzErrorTip="年龄格式有误或为空">
+            <input nz-input formControlName="age" placeholder=" 年龄" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>邮箱</nz-form-label>
+          <nz-form-control [nzSpan]="12" nzHasFeedback [nzErrorTip]="emailErrorTpl">
+            <input nz-input formControlName="email" placeholder="邮箱" type="email" />
+            <ng-template #emailErrorTpl let-control>
+              <ng-container *ngIf="control.hasError('email')">邮箱格式错误</ng-container>
+              <ng-container *ngIf="control.hasError('required')">邮箱为必填项!</ng-container>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>电话</nz-form-label>
+          <nz-form-control [nzSpan]="18" nzHasFeedback nzValidatingTip="Validating..." nzErrorTip="电话格式错误或为空">
+            <input nz-input formControlName="phone" placeholder=" 电话号码长度11位" />
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-label [nzSpan]="7" nzRequired>授权状态</nz-form-label>
+          <nz-form-control [nzSpan]="24" nzHasFeedback  >
+            <nz-radio-group formControlName="status">
+              <label nz-radio nzValue='0'>不授权</label>
+              <label nz-radio nzValue='1'>授权</label>
+            </nz-radio-group>
+          </nz-form-control>
+        </nz-form-item>
+      </form>
+    </div>
+  </ng-container>
+</nz-modal>

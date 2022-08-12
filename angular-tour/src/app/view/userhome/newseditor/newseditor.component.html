@@ -1,0 +1,86 @@
+
+<div class="title" nz-row  nzJustify="space-around" nzAlign="middle" style="margin-top: 25px">
+    <form nz-form [formGroup]="form" class="login-form" >
+        <nz-form-item >
+            <nz-form-label  nzFor="标题">标题</nz-form-label>
+            <nz-form-control nzErrorTip="标题长度应在3-50">
+                <nz-input-group  [nzSuffix]="inputClearTpl" >
+                    <input type="text" nz-input formControlName="title" placeholder="请输入标题" style="width: 179px;" />
+                </nz-input-group>
+                <ng-template #inputClearTpl>
+                    <i
+                      *ngIf="form.value!=null"
+                      nz-icon
+                      class="ant-input-clear-icon"
+                      nzTheme="fill"
+                      nzType="close-circle"
+                      (click)="clean()"
+                    ></i>
+                  </ng-template>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+<div class="channel" nz-row  nzJustify="space-around" nzAlign="middle">
+    <nz-select [(ngModel)]="channel" nzPlaceHolder="请选择频道" >
+        <nz-option nzValue="教育" nzLabel="教育"></nz-option>
+        <nz-option nzValue="生活" nzLabel="生活"></nz-option>
+        <nz-option nzValue="美食" nzLabel="美食"></nz-option>
+        <nz-option nzValue="医疗" nzLabel="医疗"></nz-option>
+        <nz-option nzValue="时政" nzLabel="时政"></nz-option>
+        <nz-option nzValue="交通" nzLabel="交通"></nz-option>
+        <nz-option nzValue="体育" nzLabel="体育"></nz-option>
+        <nz-option nzValue="disabled" nzLabel="Disabled" nzDisabled></nz-option>
+    </nz-select>
+</div>
+<div nz-row nzJustify="center" style="background-color:skyblue;" >
+    <app-editor #appeditor></app-editor>
+</div>
+<div class="channel" nz-row  nzJustify="space-around" nzAlign="middle">
+    <nz-date-picker [(ngModel)]="date" type="datetime" ></nz-date-picker>
+</div>
+<div class="type" nz-row  nzJustify="space-around" nzAlign="middle" style="margin-top:20px;">
+    <nz-radio-group [(ngModel)]="type">
+        <label nz-radio nzValue="0">无图</label>
+        <label nz-radio nzValue="1">1张图片</label>
+        <label nz-radio nzValue="3">3张图片</label>
+    </nz-radio-group>
+</div>
+<div class="picture" nz-row  nzJustify="space-around" nzAlign="middle" *ngIf="type==1||type==3" style="height:auto;margin-top:20px;">
+    <div  class="picture1" *ngIf="type==1" (click)="selectOne()">
+        <span *ngIf="onePic==null">选择图片</span>
+        <img *ngIf="onePic!=null" width="100px" height="100px " src={{onePic}}>
+    </div>
+    <div  class="picture3" *ngIf="type==3" style="height:auto;">
+        <div class="pictureitem" *ngFor="let item of threePicList;let i=index" (click)="selectThree(i)">
+            <span *ngIf="item==null">选择图片</span>
+            <img *ngIf="item!=null" width="100px" height="100px " src={{item}}>
+        </div>
+    </div>
+</div>
+<div  class="submit" nz-row  nzJustify="space-around" nzAlign="middle" style="height:auto;margin-top: 20px;">
+   <button  nz-button  nzShape="round" nzType="primary" style="background-color:honey" (click)="submit()">发布</button>
+</div>
+<nz-modal class="picture-wrapper" [(nzVisible)]="uploadpic" (nzOnCancel)="picCancel()" (nzOnOk)="saveImage()" nzTitle="图片列表" >
+    <ng-container *nzModalContent>
+    <div class="search-wrapper" *ngIf="uploadpic==true">
+        <i nz-icon nzType="picture" nzTheme="outline"></i>
+        <nz-radio-group class="status-wrapper" [(ngModel)]="dto.status" (ngModelChange)="listByStstus()">
+            <label nz-radio nzValue="1">收藏</label>
+            <label nz-radio nzValue="0">未收藏</label>
+        </nz-radio-group>
+    </div>
+    <div class="content-wrapper">
+        <nz-card nzHoverable *ngFor="let i of list" style="width:150px;height:150px;">
+            <a (click)="image(i.id,i.url)">
+            <img width="100px" height="100px "src={{i.url}} alt="">
+            </a>
+        </nz-card>
+    </div>
+    <div nz-row nzJustify="end">
+        <nz-pagination class="page-wrapper" [nzTotal]="total" [(nzPageIndex)]="dto.page" [(nzPageSize)]="dto.size"
+            (nzPageIndexChange)="listByStstus()"></nz-pagination>
+    </div>
+    </ng-container>
+    </nz-modal>
+

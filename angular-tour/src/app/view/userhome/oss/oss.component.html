@@ -1,0 +1,13 @@
+<div class="body-wrapper">
+        <nz-upload style="height:300px;width:300px" nzType="drag"  [(nzFileList)]="fileList" [nzBeforeUpload]="beforeUpload">
+            <button nz-button>
+              <i nz-icon nzType="upload"></i>
+              请选择图片文件
+            </button>
+        </nz-upload>
+    
+        <button nz-button [nzType]="'primary'"  (click)="handleUpload()"
+            [disabled]="fileList.length === 0" style="margin-top: 16px">
+            {{ uploading ? '上传图片中' : '请上传图片' }}
+        </button>
+</div>

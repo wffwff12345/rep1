@@ -1,0 +1,47 @@
+<nz-layout class="home-wrapper">
+    <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+      <div class="logo"></div>
+      <ul nz-menu nzTheme="dark" nzMode="inline">
+        <li nz-submenu nzTitle="图片管理" nzIcon="user">
+          <ul>
+            <li nz-menu-item routerLink="/uhome/picturelist" >图片列表</li>
+            <li nz-menu-item routerLink="/uhome/ossupload">新增图片</li>
+            <li nz-menu-item routerLink="/uhome/oss">手动新增图片</li>
+          </ul>
+        </li>
+        <li nz-submenu nzTitle="新闻管理" nzIcon="snippets">
+          <ul>
+            <li nz-menu-item routerLink="/uhome/newslist">新闻列表</li>
+            <li nz-menu-item routerLink="/uhome/newseditor">发布新闻</li>
+            <li nz-menu-item routerLink="/uhome/content">新闻内容</li>
+          </ul>
+        </li>
+        <li nz-menu-item>
+          <i nz-icon nzType="file"></i>
+          <span>File</span>
+        </li>
+      </ul>
+    </nz-sider>
+    <nz-layout>
+      <nz-header>
+       <!--  <i
+          class="trigger"
+          nz-icon
+          [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          (click)="isCollapsed = !isCollapsed"
+        ></i> -->
+        <div nz-row nzJustify="end" class="logout-wrapper">
+            <div nz-col nzSpan="4">
+                <a  (click)="logout()">
+                    <i nz-icon nzType="logout" nzTheme="outline"></i>
+                    退出
+                </a>
+            </div>
+        </div>
+      </nz-header>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+      
+    </nz-layout>
+  </nz-layout>

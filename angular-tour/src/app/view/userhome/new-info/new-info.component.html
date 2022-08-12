@@ -1,0 +1,10 @@
+<div >
+    <div style="text-align: center;margin-top: 15px;">
+        <h1>{{title}}</h1>
+    </div>
+    <h4>作者：{{authorname}}</h4>
+    <h4>时间：{{date|date :'yyyy-MM-dd '}}</h4>
+    <div *ngFor="let item of contents;let i=index">
+        <app-contentlist [item]="item" ></app-contentlist>
+    </div>
+</div>

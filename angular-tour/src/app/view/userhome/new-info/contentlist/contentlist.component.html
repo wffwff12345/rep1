@@ -1,0 +1,16 @@
+<div class="content">
+    <p *ngIf="item.type=='text'" style="text-indent: 2em;">
+      {{item.content}}
+    </p>
+    <div style="text-align:center;margin-bottom: 15px;">
+    <img
+      *ngIf="item.type=='image'"
+      nz-image
+      fit="cover"      
+      width=400
+      height=300
+      nzSrc={{item.content}}
+      alt=""
+    />
+    </div>
+</div>

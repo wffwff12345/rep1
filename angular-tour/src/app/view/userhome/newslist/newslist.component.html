@@ -1,0 +1,32 @@
+<div style="margin-bottom: 10px">
+<div class="search-wrapper">
+    <nz-input-group nzPrefixIcon="user" [nzSuffix]="inputClearTpl" >
+        <input type="text" nz-input [(ngModel)]="dto.title" placeholder="请输入文章名称" (blur)="search()" (change)="search()" />
+    </nz-input-group>
+    <ng-template #inputClearTpl>
+        <i
+          nz-icon
+          class="ant-input-clear-icon"
+          nzTheme="fill"
+          nzType="close-circle"
+          (click)="clean()"
+        ></i>
+      </ng-template>
+</div>
+  <div class="content-wrapper">
+      <nz-card class="card" nzHoverable *ngFor="let i of list"style="width:280px;height:auto;margin-top:10px;margin-right:10px;text-align:center"  >
+        <a class="a-wrapper" (click)="info(i.id)"  >
+        <span>{{i.title}}</span>
+        <img  *ngIf="i.type==1"   width="230px" height="200px" style="left:10px ;" src={{i.cover}} alt="">
+<!--    <img  *ngIf="i.type==3"   width="230px" height="200px" style="left:10px ;"  src={{i.cover}} alt="">
+ -->    <app-showpic *ngIf="i.type==3" [pictures]="i.cover"></app-showpic>
+        <div>{{i.createTime| date :"yyyy-MM-dd"}}</div>
+        </a>
+        <button style="background-color:brown;margin-left: 30px" nz-popconfirm nzPopconfirmTitle="你确定编辑?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="editor(i.id)" (nzOnCancel)="editorcancel()">编辑</button>
+        <button style="background-color: skyblue;margin-left: 70px" nz-popconfirm nzPopconfirmTitle="你确定删除?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="delete(i.id)" (nzOnCancel)="deletecancel()">删除</button>
+    </nz-card>
+  </div>
+  </div>
+  <div nz-row nzJustify="end">
+  <nz-pagination class="page-wrapper" [nzTotal]="total" [(nzPageIndex)]="dto.page" [(nzPageSize)]="dto.size"  (nzPageIndexChange)="listBycondition()"></nz-pagination>
+  </div>

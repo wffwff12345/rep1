@@ -1,0 +1,31 @@
+[nz-button] {
+    margin-bottom: 12px;
+  }
+.first-warrper{
+    height: 100%;
+}
+.first-wrapper{
+  height: 100%;
+
+}
+.back{
+  background-color: white;
+  border-radius: 0%;
+  border: 0;
+  margin-bottom: 15px;
+}
+.first-form {
+  width: 300px;
+}
+
+.first-form-margin {
+  margin-bottom: 16px;
+}
+
+.first-form-forgot {
+  float: right;
+}
+
+.first-form-button {
+  width: 100%;
+}

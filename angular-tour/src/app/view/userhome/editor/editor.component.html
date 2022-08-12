@@ -1,0 +1,70 @@
+<div class="item-wrapper">
+    <div class="item" *ngFor="let i of content,let key=index">
+        <div class="item-bar">
+            <button nz-button nzShape="round" nzType="default" *ngIf="i.content==null" style="color:black;float:left ;margin-right: 20px;font-size: 13px;"
+                (click)="addText(key)">添加文字</button>
+            <button nz-button nzShape="round" nzType="primary" *ngIf="i.content==null" style="color:red;float:right ;font-size: 13px;"
+                (click)="addImage(key)">添加图片</button>
+            <button nz-button nzShape="round" *ngIf="i.content!=null&&i.type=='text'" nzType="default" style="color:black;float: left;font-size: 13px;opacity: 0.5;"
+                (click)="showModal(key)">编辑</button>
+            <nz-modal [(nzVisible)]="isVisible" nzTitle="请选择编辑类型" [nzFooter]="modalFooter2" (nzOnCancel)="close()">
+                <ng-template #modalFooter2>
+                    <button nz-button nzType="primary" (click)="Tp(ediId)">编辑图片</button>
+                    <button nz-button nzType="default" (click)="editor1(ediId)">编辑文字</button>
+                </ng-template>
+            </nz-modal>
+            <button nz-button nzShape="round" nzType="default" *ngIf="i.content!=null&&i.type=='image'" style="color:black;float: left;font-size: 13px;opacity: 0.5;"
+               (click)="showModal2(key)">编辑</button>
+            <nz-modal [(nzVisible)]="isVisible2" nzTitle="请选择编辑类型" [nzFooter]="modalFooter" (nzOnCancel)="close2()">
+                <ng-template #modalFooter>
+                    <button nz-button nzType="primary" (click)="Pt(ediId2)">编辑文字</button>
+                    <button nz-button nzType="default" (click)="editor2(ediId2)">编辑图片</button>
+                </ng-template>
+            </nz-modal>
+            <button nz-button nzShape="round" nzType="primary" *ngIf="i.content!=null" style="color:red;float:right;font-size: 13px;" (click)="delete(key)">删除</button>
+        </div>
+        <div nz-button class="item-t" *ngIf="i.type=='text'"><b>{{i.content}}</b></div>
+        <div nz-button class="item-i" *ngIf="i.type=='image'" style="text-align:center;"><img src={{i.content}} alt="" width="100px" height="100px "></div>
+    </div>
+    <nz-modal [(nzVisible)]="show" nzTitle={{controller.title}} (nzOnCancel)="cancelText()" (nzOnOk)="saveText()" >
+    <ng-container *nzModalContent>
+        <textarea cols="30" rows="10" style="width:400px ;height:200px;margin-top: 20px;" placeholder="请新增文本"
+            [(ngModel)]="controller.texts"></textarea>
+        <ng-template #textAreaClearTpl>
+            <i nz-icon nzTheme="fill" nzType="close-circle" *ngIf="controller.texts" (click)="controller.texts=''"></i>
+        </ng-template>
+    </ng-container>
+       <!--  <div>
+            <button nz-button (click)="cancelText()" style="float:left ;">取消</button>
+            <button nz-button [disabled]="controller.texts==''" (click)="saveText()" style="float:right;">确认</button>
+        </div> -->
+    </nz-modal>
+    <nz-modal class="picture-wrapper" [(nzVisible)]="uploadpic" (nzOnCancel)="picCancel()" (nzOnOk)="saveImage()" nzTitle="图片列表" >
+    <ng-container *nzModalContent>
+    <div class="search-wrapper" *ngIf="uploadpic==true">
+        <i nz-icon nzType="picture" nzTheme="outline"></i>
+        <nz-radio-group class="status-wrapper" [(ngModel)]="dto.status" (ngModelChange)="listByStstus()">
+            <label nz-radio nzValue="1">收藏</label>
+            <label nz-radio nzValue="0">未收藏</label>
+        </nz-radio-group>
+    </div>
+    <div class="content-wrapper">
+        <nz-card nzHoverable *ngFor="let i of list" style="width:150px;height:150px;">
+            <a (click)="image(i.url)">
+            <img width="100px" height="100px " src={{i.url}} alt="">
+            </a>
+        </nz-card>
+    </div>
+    <div nz-row nzJustify="end">
+        <nz-pagination class="page-wrapper" [nzTotal]="total" [(nzPageIndex)]="dto.page" [(nzPageSize)]="dto.size"
+            (nzPageIndexChange)="listByStstus()"></nz-pagination>
+    </div>
+    </ng-container>
+    </nz-modal>
+
+</div>
+
+
+  
+  
+  

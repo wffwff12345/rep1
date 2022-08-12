@@ -1,0 +1,24 @@
+<div class="login" nz-row nzType="flex" nzJustify="space-around" nzAlign="middle">
+    <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
+            <button class="back"  (click)="back()">
+                <i nz-icon nzType="left" ></i>
+                返回
+            </button>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="账户为空!">
+            <nz-input-group nzPrefixIcon="user">
+              <input type="text" nz-input formControlName="name" placeholder="请输入账户名" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+          <nz-form-control nzErrorTip="密码为空或格式错误!">
+            <nz-input-group nzPrefixIcon="lock">
+              <input type="password" nz-input formControlName="password" placeholder="请输入密码" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+        <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">登录</button>
+        <a href="" routerLink="/register">注册!</a>
+      </form>
+</div>

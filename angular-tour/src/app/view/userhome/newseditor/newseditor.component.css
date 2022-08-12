@@ -1,0 +1,40 @@
+nz-select {
+    margin: 0 8px 10px 0;
+    width: 120px;
+  }
+  nz-date-picker {
+    margin: 0 8px 12px 0;
+  }
+.content{
+    border: 2px;
+    height:500px;
+    background-color: aquamarine;
+}
+.title{
+    height: 40px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.channel{
+    margin-top: 10px;
+}
+.picture{
+    margin-top: 10px;
+}
+.picture3{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+.pictureitem{
+    margin-left: 10px;
+}
+.submit{
+    margin-top: 10px;
+}
+.content-wrapper{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 30px;
+  }

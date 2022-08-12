@@ -1,0 +1,21 @@
+<div style="margin-bottom: 10px;">
+<div class="search-wrapper">
+  <i nz-icon nzType="picture" nzTheme="outline"></i>
+    <nz-radio-group class="status-wrapper" [(ngModel)]="dto.status" (ngModelChange)="listByStstus()">
+        <label nz-radio nzValue="1">收藏</label>
+        <label nz-radio nzValue="0">未收藏</label>
+    </nz-radio-group>
+</div>
+<div class="content-wrapper">
+    <nz-card *ngFor="let i of list"   style="width:300px;height: 250px;margin-left: 30px;margin-right: 240px;"  >
+      <img   width="250px" height="200px" src={{i.url}} alt="">
+      <button style="background-color:brown;margin-left: 30px" (click)="operation(i.id,i.status)">{{i.status==1? '取消':''}}收藏</button>
+      <button style="background-color: skyblue;margin-left: 70px" nz-popconfirm nzPopconfirmTitle="你确定删除?" nzPopconfirmPlacement="bottom" (nzOnConfirm)="delete(i.id)" (nzOnCancel)="deletecancel()">删除</button>
+    </nz-card>
+</div>
+</div>
+<div nz-row nzJustify="end">
+<nz-pagination class="page-wrapper" [nzTotal]="total" [(nzPageIndex)]="dto.page" [(nzPageSize)]="dto.size"  (nzPageIndexChange)="listByStstus()"></nz-pagination>
+</div>
+
+

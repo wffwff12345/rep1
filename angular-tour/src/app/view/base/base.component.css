@@ -1,0 +1,37 @@
+[nz-button] {
+    margin-bottom: 12px;
+  }
+.base-warrper{
+    height: 100%;
+}
+[nz-button] {
+  margin-bottom: 12px;
+}
+.base-warrper{
+  height: 100%;
+}
+.base-wrapper{
+height: 100%;
+
+}
+.back{
+background-color: white;
+border-radius: 0%;
+border: 0;
+margin-bottom: 15px;
+}
+.base-form {
+width: 300px;
+}
+
+.base-form-margin {
+margin-bottom: 16px;
+}
+
+.base-form-forgot {
+float: right;
+}
+
+.base-form-button {
+width: 100%;
+}

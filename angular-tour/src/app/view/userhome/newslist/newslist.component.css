@@ -1,0 +1,33 @@
+p {
+    margin: 0;
+  }
+.list-wrapper{
+  display: flex;
+  height: 300px;
+  width: 240;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.list-wrapper.ng-star-inserted{
+  height: 300px;
+  width: 240;
+}
+.status-wrapper{
+  margin-left: 20px;
+}
+.page-wrapper{
+  height: 100px;
+}
+.content-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+ 
+  height: 500px;
+}
+.search-wrapper{
+    width: 245px;
+}
+.card{
+  padding-right: 10px;
+}

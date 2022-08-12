@@ -1,0 +1,22 @@
+{
+
+    "/admin":{
+        "target":"http://127.0.0.1:9001/",
+        "logLevel":"debug",
+        "secure":false,
+        "changeOrigin":true,
+        "pathRewrite":{
+            "^/admin":""
+        }
+    },
+    "/user":{
+        "target":"http://127.0.0.1:9002/",
+        "logLevel":"debug",
+        "secure":false,
+        "changeOrigin":true,
+        "pathRewrite":{
+            "^/user":""
+        }
+    }
+
+}
